@@ -6,12 +6,15 @@ A small SwiftUI macOS app for reading CPU temperatures and controlling two fans 
 
 ## Build
 
-Requirements: Apple Silicon Mac, macOS 13 or newer, Xcode command line tools, and Stats installed at `/Applications/Stats.app`.
+Requirements: Apple Silicon Mac, macOS 13 or newer, Xcode command line tools with an accepted license (`sudo xcodebuild -license`), and Stats installed at `/Applications/Stats.app`.
 
 ```sh
 ./build.sh
-open "build/Fan Control.app"
+./install.sh
+open "$HOME/Applications/Fan Control.app"
 ```
+
+`install.sh` copies the built app into `~/Applications`, clears Gatekeeper quarantine attributes, and re-signs adhoc so Finder/`open` can launch it on this Mac. That step matters when you copy a built `.app` from another machine — macOS often blocks the first open until quarantine is cleared.
 
 The build copies the installed Stats `smc` executable into the app bundle. The repository does not contain that binary; its MIT license is included at `Resources/LICENSE.stats`. The app itself is MIT licensed in [LICENSE](LICENSE).
 

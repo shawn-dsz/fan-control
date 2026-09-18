@@ -37,8 +37,8 @@ cat > "$contents/Info.plist" <<'PLIST'
   <key>CFBundleDisplayName</key><string>Fan Control</string>
   <key>CFBundleExecutable</key><string>FanControl</string>
   <key>CFBundlePackageType</key><string>APPL</string>
-  <key>CFBundleVersion</key><string>26</string>
-  <key>CFBundleShortVersionString</key><string>1.25</string>
+  <key>CFBundleVersion</key><string>27</string>
+  <key>CFBundleShortVersionString</key><string>1.26</string>
   <key>CFBundleIconFile</key><string>FanControl.icns</string>
   <key>LSMinimumSystemVersion</key><string>13.0</string>
   <key>NSHighResolutionCapable</key><true/>
@@ -47,4 +47,6 @@ PLIST
 
 codesign --force --sign - "$contents/Resources/FanControlHelper"
 codesign --force --sign - "$app"
+# Drop quarantine/provenance so a freshly built or copied bundle opens locally.
+xattr -cr "$app" 2>/dev/null || true
 echo "$app"
